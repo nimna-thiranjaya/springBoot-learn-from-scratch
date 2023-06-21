@@ -1,0 +1,3 @@
+# go to spring initializer (start.spring.io)
+    -Group - project domain
+    -Artifact - Project name
