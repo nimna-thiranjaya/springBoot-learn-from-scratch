@@ -3,8 +3,8 @@ package com.nimna.possystemlts.controller;
 import com.nimna.possystemlts.dto.CustomerDTO;
 import com.nimna.possystemlts.dto.request.CustomerUpdateDTO;
 import com.nimna.possystemlts.service.CustomerService;
-import com.nimna.possystemlts.service.impl.CustomerServiceIMPL;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,4 +32,15 @@ public class  CustomerController {
         String message = customerService.updateCustomer(customerUpdateDTO);
         return message;
     }
+
+//    @GetMapping(path = "/get-one-customer")
+//    public CustomerDTO getCustomerByID (@RequestParam(name = "id") int id){} we can use this as well for search
+
+    @GetMapping(path = "/get-one-customer", params = "id")
+    public CustomerDTO getCustomerByID (@RequestParam(value = "id") int customerId){
+//        System.out.println("Print value : " + customerId );
+        CustomerDTO customerDTO = customerService.getCustomerByID(customerId);
+        return customerDTO;
+    }
+
 }
