@@ -104,10 +104,9 @@ public class Customer {
         this.customerSalary = customerSalary;
     }
 
-    public Boolean getActive() {
+    public boolean isActive() {
         return active;
     }
-
     public void setActive(Boolean active) {
         this.active = active;
     }

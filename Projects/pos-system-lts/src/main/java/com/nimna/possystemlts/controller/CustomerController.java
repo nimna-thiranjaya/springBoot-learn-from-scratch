@@ -13,6 +13,7 @@ public class  CustomerController {
 
     // This is the dependency injection. in here using autowired annotation we can create object from service class tha we annotate using @Service anotation
     // this is same as singleton design pattern
+    // This is actually property injection
     @Autowired
     private CustomerService customerService;
 
