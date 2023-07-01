@@ -1,6 +1,7 @@
 package com.nimna.possystemlts.controller;
 
 import com.nimna.possystemlts.dto.CustomerDTO;
+import com.nimna.possystemlts.dto.request.CustomerUpdateDTO;
 import com.nimna.possystemlts.service.CustomerService;
 import com.nimna.possystemlts.service.impl.CustomerServiceIMPL;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,13 @@ public class  CustomerController {
 //        old method to call service class Currently this method not using because when we use this method over and over it crate object in heap
 //        CustomerServiceIMPL customerServiceIMPL = new CustomerServiceIMPL();
 //        customerServiceIMPL.saveCustomer(customerDTO);
-        customerService.saveCustomer(customerDTO);
-        return "Data Saved Successfully";
+        String message = customerService.saveCustomer(customerDTO);
+        return message;
+    }
+
+    @PutMapping("/update")
+    public String updateCustomer (@RequestBody CustomerUpdateDTO customerUpdateDTO){
+        String message = customerService.updateCustomer(customerUpdateDTO);
+        return message;
     }
 }

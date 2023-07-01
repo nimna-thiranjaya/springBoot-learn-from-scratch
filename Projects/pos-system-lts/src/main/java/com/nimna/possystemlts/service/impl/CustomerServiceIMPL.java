@@ -2,6 +2,7 @@ package com.nimna.possystemlts.service.impl;
 
 
 import com.nimna.possystemlts.dto.CustomerDTO;
+import com.nimna.possystemlts.dto.request.CustomerUpdateDTO;
 import com.nimna.possystemlts.entity.Customer;
 import com.nimna.possystemlts.repository.CustomerRepo;
 import com.nimna.possystemlts.service.CustomerService;
@@ -33,6 +34,23 @@ public class CustomerServiceIMPL implements CustomerService {
         // customerM2.setCustomerID(customerDTO.getCustomerID());
 
         customerRepo.save(customer);
-        return "";
+        return "Customer Created Successful!";
+    }
+
+    @Override
+    public String updateCustomer(CustomerUpdateDTO customerUpdateDTO) {
+        if(customerRepo.existsById(customerUpdateDTO.getCustomerID())) {
+            Customer customer = customerRepo.getReferenceById(customerUpdateDTO.getCustomerID());
+
+            customer.setCustomerName(customerUpdateDTO.getCustomerName());
+            customer.setCustomerAddress(customerUpdateDTO.getCustomerAddress());
+            customer.setCustomerSalary(customerUpdateDTO.getCustomerSalary());
+
+            customerRepo.save(customer);
+
+            return  customer.getCustomerName() + " Updated Successful!";
+        }else {
+            throw new RuntimeException("No Customer Found");
+        }
     }
 }
