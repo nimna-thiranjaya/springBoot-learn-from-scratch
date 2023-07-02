@@ -9,6 +9,9 @@ import com.nimna.possystemlts.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CustomerServiceIMPL implements CustomerService {
 
@@ -71,5 +74,43 @@ public class CustomerServiceIMPL implements CustomerService {
         }else {
             throw new RuntimeException("No Customer Found");
         }
+    }
+
+    @Override
+    public List<CustomerDTO> getAllCustomers() {
+        List<Customer> allCustomers = customerRepo.findAll();
+//      System.out.println(allCustomers);
+
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+        // Mapping data using for loop
+//        for(int i =0; i<allCustomers.size(); i++) {
+//            CustomerDTO customerDTO = new CustomerDTO(
+//                    allCustomers.get(i).getCustomerID(),
+//                    allCustomers.get(i).getCustomerName(),
+//                    allCustomers.get(i).getCustomerAddress(),
+//                    allCustomers.get(i).getContactNumber(),
+//                    allCustomers.get(i).getNic(),
+//                    allCustomers.get(i).getCustomerSalary(),
+//                    allCustomers.get(i).isActive()
+//            );
+//            customerDTOList.add(customerDTO);
+//        }
+//        System.out.println(customerDTOList);
+
+        // Mapping data using for loopEach
+
+        for (Customer customer : allCustomers) {
+            CustomerDTO customerDTO = new CustomerDTO(
+                    customer.getCustomerID(),
+                    customer.getCustomerName(),
+                    customer.getCustomerAddress(),
+                    customer.getContactNumber(),
+                    customer.getNic(),
+                    customer.getCustomerSalary(),
+                    customer.isActive()
+            );
+            customerDTOList.add(customerDTO);
+        }
+        return customerDTOList;
     }
 }
