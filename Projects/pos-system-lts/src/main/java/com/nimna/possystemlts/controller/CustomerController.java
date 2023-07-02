@@ -4,10 +4,8 @@ import com.nimna.possystemlts.dto.CustomerDTO;
 import com.nimna.possystemlts.dto.request.CustomerUpdateDTO;
 import com.nimna.possystemlts.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -53,5 +51,13 @@ public class  CustomerController {
 
         return allCustomers;
     }
+
+    @DeleteMapping(path = "delete-customer/{id}")
+    public String deleteCustomer(@PathVariable("id") int customer_id) {
+        String message = customerService.deleteCustomerById(customer_id);
+        return message;
+    }
+
+
 
 }

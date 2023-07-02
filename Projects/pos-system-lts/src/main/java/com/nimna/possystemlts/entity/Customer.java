@@ -6,10 +6,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -22,6 +19,7 @@ public class Customer {
 
     @Id
     @Column(name = "customer_id", length = 45) // column name is customer_id and length should be less than 45 digits
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int customerID;
 
     @Column(name = "customer_name", length = 100, nullable = false)  //customer name field is required.
