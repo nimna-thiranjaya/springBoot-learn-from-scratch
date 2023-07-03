@@ -58,6 +58,9 @@ public class  CustomerController {
         return message;
     }
 
-
-
+    @GetMapping("get-customers-from-status/{status}")
+    public List<CustomerDTO> getCustomersFromStatus (@PathVariable(value = "status") Boolean activeStatus){
+        List<CustomerDTO> allCustomers = customerService.getCustomersByStatus(activeStatus);
+        return allCustomers;
+    }
 }

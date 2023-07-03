@@ -1,6 +1,6 @@
 package com.nimna.possystemlts.repository;
 
-import com.nimna.possystemlts.entity.Customer;
+import com.nimna.possystemlts.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
@@ -9,7 +9,8 @@ import java.util.List;
 
 @Repository
 @EnableJpaRepositories
-// JpaRepository<Customer,Integer>  <Entity class name, Entity Id data type>. ID data type going as generic
-public interface CustomerRepo extends JpaRepository<Customer,Integer> {
-    List<Customer> findAllByActiveEquals(Boolean activeStatus);
+public interface ItemRepo extends JpaRepository<Item,Integer> {
+    Item findByItemNameAndActiveStatusIsTrue(String itemName);
+
+    List<Item> findAllByActiveStatus(boolean itemStatus);
 }

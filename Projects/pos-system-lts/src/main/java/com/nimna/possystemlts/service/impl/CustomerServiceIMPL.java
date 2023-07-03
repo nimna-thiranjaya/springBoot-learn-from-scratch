@@ -124,4 +124,24 @@ public class CustomerServiceIMPL implements CustomerService {
             throw new RuntimeException("Customer Not found");
         }
     }
+
+    @Override
+    public List<CustomerDTO> getCustomersByStatus(Boolean activeStatus) {
+        List<Customer> customerList = customerRepo.findAllByActiveEquals(activeStatus);
+
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+        for (Customer customer : customerList) {
+            CustomerDTO customerDTO = new CustomerDTO(
+                    customer.getCustomerID(),
+                    customer.getCustomerName(),
+                    customer.getCustomerAddress(),
+                    customer.getContactNumber(),
+                    customer.getNic(),
+                    customer.getCustomerSalary(),
+                    customer.isActive()
+            );
+            customerDTOList.add(customerDTO);
+        }
+        return customerDTOList;
+    }
 }

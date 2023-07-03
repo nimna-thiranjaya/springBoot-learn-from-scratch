@@ -15,4 +15,6 @@ public interface CustomerService {
     public List<CustomerDTO> getAllCustomers();
 
     public String deleteCustomerById(int customerId);
+
+    public List<CustomerDTO> getCustomersByStatus(Boolean activeStatus);
 }

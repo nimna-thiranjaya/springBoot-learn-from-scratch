@@ -42,7 +42,8 @@ public class Customer {
     @Column(name = "active_status", columnDefinition = "TINYINT default 0") // set boolean as 1 or 0
     private Boolean active;
 
-    public Customer () {} // no argument constructor
+    public Customer() {
+    } // no argument constructor
 
     public Customer(int customerID, String customerName, String customerAddress, ArrayList contactNumber, String nic, Double customerSalary, Boolean active) {
         this.customerID = customerID;
@@ -105,6 +106,7 @@ public class Customer {
     public boolean isActive() {
         return active;
     }
+
     public void setActive(Boolean active) {
         this.active = active;
     }
