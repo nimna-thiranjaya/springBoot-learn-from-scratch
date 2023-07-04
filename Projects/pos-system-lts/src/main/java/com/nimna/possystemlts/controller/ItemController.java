@@ -42,4 +42,13 @@ public class ItemController {
         return items;
     }
 
+    @GetMapping(path = "/get-active-items-map-struct", params = "status")
+    public List<GetItemResponseDTO> getItemFromStatusUsingMapStruct(@RequestParam(value = "status") boolean ItemStatus) {
+
+        List<GetItemResponseDTO> items = itemService.getItemsFromStatusUsingMapStruct(ItemStatus);
+
+        return items;
+    }
+
+
 }

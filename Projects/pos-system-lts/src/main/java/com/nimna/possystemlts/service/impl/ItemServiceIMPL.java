@@ -6,6 +6,7 @@ import com.nimna.possystemlts.dto.response.GetItemResponseDTO;
 import com.nimna.possystemlts.entity.Item;
 import com.nimna.possystemlts.repository.ItemRepo;
 import com.nimna.possystemlts.service.ItemService;
+import com.nimna.possystemlts.util.mappers.ItemMapper;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ public class ItemServiceIMPL implements ItemService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private ItemMapper itemMapper;
+
 
     @Override
     public String save(ItemSaveRequestDTO itemSaveRequestDTO) {
@@ -59,6 +64,19 @@ public class ItemServiceIMPL implements ItemService {
         if (items.size() > 0){
             List<GetItemResponseDTO> allItems = modelMapper.map(items, new TypeToken<List<GetItemResponseDTO>>(){}.getType());
             return allItems;
+        }else{
+            throw new RuntimeException("Not Found");
+        }
+    }
+
+    @Override
+    public List<GetItemResponseDTO> getItemsFromStatusUsingMapStruct(boolean itemStatus) {
+        List<Item> items = itemRepo.findAllByActiveStatus(itemStatus);
+
+        if (items.size() > 0){
+            List<GetItemResponseDTO> allItems = itemMapper.entityListToDtoList(items);
+            return allItems;
+
         }else{
             throw new RuntimeException("Not Found");
         }

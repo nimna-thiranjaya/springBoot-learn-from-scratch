@@ -12,4 +12,6 @@ public interface ItemService {
     public ItemDTO GetItemIfActive(String itemName);
 
     public List<GetItemResponseDTO> getItemsFromStatus(boolean itemStatus);
+
+    public List<GetItemResponseDTO> getItemsFromStatusUsingMapStruct(boolean itemStatus);
 }
