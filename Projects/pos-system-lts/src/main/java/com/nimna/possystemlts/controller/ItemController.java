@@ -1,13 +1,12 @@
 package com.nimna.possystemlts.controller;
 
 import com.nimna.possystemlts.dto.ItemDTO;
+import com.nimna.possystemlts.dto.paginated.PaginatedResponseItemDTO;
 import com.nimna.possystemlts.dto.request.ItemSaveRequestDTO;
 import com.nimna.possystemlts.dto.response.GetItemResponseDTO;
-import com.nimna.possystemlts.entity.Item;
 import com.nimna.possystemlts.service.ItemService;
 import com.nimna.possystemlts.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -99,6 +98,40 @@ public class ItemController {
 
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200, "Success", items),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping(
+            path = "get-all-items",
+            params = {"page", "size"}
+    )
+    public ResponseEntity<StandardResponse> getAllItems(
+            @RequestParam(value = "page") int pageNumber,
+            @RequestParam(value = "size") int pageSize
+    ) {
+        PaginatedResponseItemDTO paginatedResponseItemDTO = itemService.getAllItems(pageNumber, pageSize);
+
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", paginatedResponseItemDTO),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping(
+            path = "get-all-items-status",
+            params = {"status","page", "size"}
+    )
+
+    public ResponseEntity<StandardResponse> getAllItemsFromItemStatus(
+            @RequestParam(value = "status") boolean status,
+            @RequestParam(value = "page") int page,
+            @RequestParam(value = "size") int size
+    ){
+        PaginatedResponseItemDTO paginatedResponseItemDTO = itemService.getAllItemsFromStatus(status, page, size);
+
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", paginatedResponseItemDTO),
                 HttpStatus.OK
         );
     }

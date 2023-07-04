@@ -1,15 +1,19 @@
 package com.nimna.possystemlts.service.impl;
 
 import com.nimna.possystemlts.dto.ItemDTO;
+import com.nimna.possystemlts.dto.paginated.PaginatedResponseItemDTO;
 import com.nimna.possystemlts.dto.request.ItemSaveRequestDTO;
 import com.nimna.possystemlts.dto.response.GetItemResponseDTO;
 import com.nimna.possystemlts.entity.Item;
+import com.nimna.possystemlts.exception.NotFoundException;
 import com.nimna.possystemlts.repository.ItemRepo;
 import com.nimna.possystemlts.service.ItemService;
 import com.nimna.possystemlts.util.mappers.ItemMapper;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -80,5 +84,37 @@ public class ItemServiceIMPL implements ItemService {
         }else{
             throw new RuntimeException("Not Found");
         }
+    }
+
+    @Override
+    public PaginatedResponseItemDTO getAllItems(int pageNumber, int pageSize) {
+        Page<Item>  items = itemRepo.findAll(PageRequest.of(pageNumber, pageSize));
+
+        if(items.getSize() > 0) {
+            PaginatedResponseItemDTO paginatedResponseItemDTO = new PaginatedResponseItemDTO(
+                    itemMapper.PageItemListToGetItemResponseDTO(items),
+                    itemRepo.findAll().size()
+            );
+            return paginatedResponseItemDTO;
+        }else {
+            throw new NotFoundException("No Items Found");
+        }
+    }
+
+    @Override
+    public PaginatedResponseItemDTO getAllItemsFromStatus(boolean status, int page, int size) {
+        Page<Item> items = itemRepo.findAllByActiveStatus(status, PageRequest.of(page, size));
+
+        if(items.getSize() > 1) {
+            PaginatedResponseItemDTO paginatedResponseItemDTO = new PaginatedResponseItemDTO(
+                    itemMapper.PageItemListToGetItemResponseDTO(items),
+                    itemRepo.countAllByActiveStatus(status)
+            );
+
+            return  paginatedResponseItemDTO;
+        }else{
+            throw new NotFoundException("No Items Found");
+        }
+
     }
 }
