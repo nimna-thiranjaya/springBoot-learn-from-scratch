@@ -4,6 +4,7 @@ package com.nimna.possystemlts.service.impl;
 import com.nimna.possystemlts.dto.CustomerDTO;
 import com.nimna.possystemlts.dto.request.CustomerUpdateDTO;
 import com.nimna.possystemlts.entity.Customer;
+import com.nimna.possystemlts.exception.NotFoundException;
 import com.nimna.possystemlts.repository.CustomerRepo;
 import com.nimna.possystemlts.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,8 +82,9 @@ public class CustomerServiceIMPL implements CustomerService {
         List<Customer> allCustomers = customerRepo.findAll();
 //      System.out.println(allCustomers);
 
-        List<CustomerDTO> customerDTOList = new ArrayList<>();
-        // Mapping data using for loop
+        if(allCustomers.size() > 0) {
+            List<CustomerDTO> customerDTOList = new ArrayList<>();
+            // Mapping data using for loop
 //        for(int i =0; i<allCustomers.size(); i++) {
 //            CustomerDTO customerDTO = new CustomerDTO(
 //                    allCustomers.get(i).getCustomerID(),
@@ -97,21 +99,26 @@ public class CustomerServiceIMPL implements CustomerService {
 //        }
 //        System.out.println(customerDTOList);
 
-        // Mapping data using for loopEach
+            // Mapping data using for loopEach
 
-        for (Customer customer : allCustomers) {
-            CustomerDTO customerDTO = new CustomerDTO(
-                    customer.getCustomerID(),
-                    customer.getCustomerName(),
-                    customer.getCustomerAddress(),
-                    customer.getContactNumber(),
-                    customer.getNic(),
-                    customer.getCustomerSalary(),
-                    customer.isActive()
-            );
-            customerDTOList.add(customerDTO);
+            for (Customer customer : allCustomers) {
+                CustomerDTO customerDTO = new CustomerDTO(
+                        customer.getCustomerID(),
+                        customer.getCustomerName(),
+                        customer.getCustomerAddress(),
+                        customer.getContactNumber(),
+                        customer.getNic(),
+                        customer.getCustomerSalary(),
+                        customer.isActive()
+                );
+                customerDTOList.add(customerDTO);
+            }
+            return customerDTOList;
+        }else{
+            throw new NotFoundException("No Customer Found");
         }
-        return customerDTOList;
+
+
     }
 
     @Override
