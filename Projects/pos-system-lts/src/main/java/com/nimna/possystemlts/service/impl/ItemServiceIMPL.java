@@ -5,6 +5,7 @@ import com.nimna.possystemlts.dto.paginated.PaginatedResponseItemDTO;
 import com.nimna.possystemlts.dto.request.ItemSaveRequestDTO;
 import com.nimna.possystemlts.dto.response.GetItemResponseDTO;
 import com.nimna.possystemlts.entity.Item;
+import com.nimna.possystemlts.exception.BadRequestException;
 import com.nimna.possystemlts.exception.NotFoundException;
 import com.nimna.possystemlts.repository.ItemRepo;
 import com.nimna.possystemlts.service.ItemService;
@@ -103,6 +104,10 @@ public class ItemServiceIMPL implements ItemService {
 
     @Override
     public PaginatedResponseItemDTO getAllItemsFromStatus(boolean status, int page, int size) {
+        if(size > 10){
+            throw new BadRequestException("Page size should not exceed 10");
+        }
+
         Page<Item> items = itemRepo.findAllByActiveStatus(status, PageRequest.of(page, size));
 
         if(items.getSize() > 1) {

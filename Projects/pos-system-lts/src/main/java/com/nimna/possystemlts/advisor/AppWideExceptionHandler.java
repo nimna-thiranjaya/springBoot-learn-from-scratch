@@ -1,5 +1,6 @@
 package com.nimna.possystemlts.advisor;
 
+import com.nimna.possystemlts.exception.BadRequestException;
 import com.nimna.possystemlts.exception.NotFoundException;
 import com.nimna.possystemlts.util.StandardResponse;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,14 @@ public class AppWideExceptionHandler {
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(500, "Error", e.getMessage()),
                 HttpStatus.INTERNAL_SERVER_ERROR
+        );
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<StandardResponse> handleBadRequestException (Exception e){
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(400, "Error", e.getMessage()),
+                HttpStatus.BAD_REQUEST
         );
     }
 
