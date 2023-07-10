@@ -1,5 +1,6 @@
 package com.nimna.eLibrarysystem.advisor;
 
+import com.nimna.eLibrarysystem.exception.BadRequestException;
 import com.nimna.eLibrarysystem.exception.NotFoundException;
 import com.nimna.eLibrarysystem.util.StandardResponse;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,14 @@ public class AppWideExceptionHandler {
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(404, "Error", e.getMessage()),
                 HttpStatus.NOT_FOUND
+        );
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public  ResponseEntity<StandardResponse> handleBadRequestException(BadRequestException e){
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(400, "Error", e.getMessage()),
+                HttpStatus.BAD_REQUEST
         );
     }
 

@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-@Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE ,componentModel = "spring")
+@Mapper(componentModel = "spring")
 public interface BookMapper {
     List<BookDTO> pageBookToListOfBookDTO (Page<Book> page);
 

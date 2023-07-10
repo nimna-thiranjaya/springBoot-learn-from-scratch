@@ -8,7 +8,7 @@ import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "customer")
@@ -41,6 +41,9 @@ public class Customer {
 
     @Column(name = "active_status", columnDefinition = "TINYINT default 0") // set boolean as 1 or 0
     private Boolean active;
+
+    @OneToMany(mappedBy="customers")
+    private Set<Order> orders;
 
     public Customer() {
     } // no argument constructor
