@@ -13,7 +13,8 @@ public class ProjectSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/v1/account/my-account", "/api/v1/loan/my-loan").authenticated()
+                .antMatchers("/api/v1/account/my-account").hasAuthority("admin")
+                .antMatchers("/api/v1/loan/my-loan").hasAuthority("user")
                 .antMatchers("/api/v1/notice/my-notice", "/api/v1/user/register").permitAll()
                 .and().formLogin().and().httpBasic();
 

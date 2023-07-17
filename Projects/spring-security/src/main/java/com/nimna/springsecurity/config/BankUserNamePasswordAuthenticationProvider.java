@@ -41,7 +41,7 @@ public class BankUserNamePasswordAuthenticationProvider implements Authenticatio
         }else {
             throw new BadCredentialsException("Nor user from given email");
         }
-        
+
     }
 
     @Override
