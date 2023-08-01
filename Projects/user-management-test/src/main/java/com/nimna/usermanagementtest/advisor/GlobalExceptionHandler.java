@@ -53,11 +53,11 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<StandardResponse> handleException (Exception e) {
-        return new ResponseEntity<StandardResponse>(
-                new StandardResponse(false, StatusCode.INTERNAL_SERVER_ERROR.getCode(), e.getMessage(), Instant.now(), null),
-                HttpStatus.INTERNAL_SERVER_ERROR
-        );
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<StandardResponse> handleException (Exception e) {
+//        return new ResponseEntity<StandardResponse>(
+//                new StandardResponse(false, StatusCode.INTERNAL_SERVER_ERROR.getCode(), e.getMessage(), Instant.now(), null),
+//                HttpStatus.INTERNAL_SERVER_ERROR
+//        );
+//    }
 }

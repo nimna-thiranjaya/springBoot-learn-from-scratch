@@ -1,7 +1,7 @@
 package com.nimna.usermanagementtest.util.enums;
 
 public enum StatusCode {
-    SUCCESS(200),
+    OK(200),
     CREATED(201),
     BAD_REQUEST(400),
     UNAUTHORIZED(401),

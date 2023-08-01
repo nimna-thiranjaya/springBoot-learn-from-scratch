@@ -13,20 +13,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
+
 @RestControllerAdvice
 public class ValidationHandler {
-        @ExceptionHandler(MethodArgumentNotValidException.class)
-        @ResponseStatus(HttpStatus.BAD_REQUEST)
-        public ResponseEntity<StandardResponse> handleMothodArgumentException(MethodArgumentNotValidException exception){
-            Map<String, String> errorMap = new HashMap<>();
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<StandardResponse> handleMethodArgumentException(MethodArgumentNotValidException exception) {
+        Map<String, String> errorMap = new HashMap<>();
 
-            exception.getBindingResult().getFieldErrors().forEach(error -> {
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            });
+        exception.getBindingResult().getFieldErrors().forEach(error -> {
+            errorMap.put(error.getField(), error.getDefaultMessage());
+        });
 
-            return new ResponseEntity<StandardResponse>(
-                    new StandardResponse(false, StatusCode.BAD_REQUEST.getCode(), "Validation Error", Instant.now(), errorMap),
-                    HttpStatus.BAD_REQUEST
-            );
-        }
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(false, StatusCode.BAD_REQUEST.getCode(), "Validation Error", Instant.now(), errorMap),
+                HttpStatus.BAD_REQUEST
+        );
+    }
 }
