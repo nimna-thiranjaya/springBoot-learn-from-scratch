@@ -1,19 +1,18 @@
-package com.nimna.usermanagementtest.dto.response;
+package com.nimna.usermanagementtest.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @ToString
-public class UserResponseDTO {
+public class LoginRequestDTO {
     private  String email;
-    private String firstName;
-    private String lastName;
-    private ArrayList<String> roles;
+    private String password;
 }

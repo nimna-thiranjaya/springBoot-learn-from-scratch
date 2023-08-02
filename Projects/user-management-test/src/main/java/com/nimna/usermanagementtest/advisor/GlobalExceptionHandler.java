@@ -53,6 +53,21 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(InvalidJwtException.class)
+    public ResponseEntity<StandardResponse> handleInvalidJwtException(Exception e){
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(false, StatusCode.BAD_REQUEST.getCode(), e.getMessage(), Instant.now(), null),
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<StandardResponse> handleExpiredJwtException(Exception e) {
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(false, StatusCode.UNAUTHORIZED.getCode(), e.getMessage(), Instant.now(), null),
+                HttpStatus.BAD_REQUEST
+        );    }
+
 //    @ExceptionHandler(Exception.class)
 //    public ResponseEntity<StandardResponse> handleException (Exception e) {
 //        return new ResponseEntity<StandardResponse>(

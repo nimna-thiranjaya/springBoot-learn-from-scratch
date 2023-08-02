@@ -57,9 +57,15 @@ public class UserServiceIMPL implements UserService {
 
         User creatdUser = userRepository.save(newUser);
 
+        ArrayList<String> userRoles = new ArrayList<>();
+        for (Role role: creatdUser.getRoles()) {
+            userRoles.add(role.getRoleName());
+        }
 
+        UserResponseDTO userResponseDTO = modelMapper.map(creatdUser, UserResponseDTO.class);
+        userResponseDTO.setRoles(userRoles);
 
-        return modelMapper.map(creatdUser, UserResponseDTO.class);
+        return userResponseDTO;
     }
 
     @Override
