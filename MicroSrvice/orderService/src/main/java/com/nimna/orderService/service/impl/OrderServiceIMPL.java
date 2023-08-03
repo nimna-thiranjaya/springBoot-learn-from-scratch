@@ -8,11 +8,13 @@ import com.nimna.orderService.repository.OrderRepository;
 import com.nimna.orderService.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional(readOnly = true)
 public class OrderServiceIMPL implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
