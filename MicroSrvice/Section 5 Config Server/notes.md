@@ -56,3 +56,30 @@ spring.config.import=optional:configserver:http://localhost:8888
 ```
 curl -X POST http://localhost:8080/actuator/refresh
 ```
+
+# To Refresh Configuration automatically
+add rabbitmq dependency to client projects in pom.xml
+```
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-bus-amqp</artifactId>
+</dependency>
+```
+After that pull docker image from docker hub
+```
+docker pull rabbitmq
+docker run --rm -it -p 5672:5672 rabbitmq:3.11.0
+```
+Add rabbitmq configuration in application.properties
+```
+spring.rabbitmq.host=localhost
+spring.rabbitmq.port=5672
+spring.rabbitmq.username=guest
+spring.rabbitmq.password=guest
+```
+### Update Configurations using bus
+```
+curl -X POST http://localhost:8080/actuator/busrefresh
+```
+
+After execute this post request it will send refresh event to bus and config server will reconfigure the application
